@@ -15,31 +15,45 @@
   <h1>☆★ゲッダン★☆ タイピング速度測定</h1>
   <p>次の文字をできるだけ速く入力してください：</p>
   <p><strong>☆★ゲッダン★☆</strong></p>
-  <input type="text" id="typingInput" placeholder="ここに入力..." onfocus="startTimer()" oninput="checkInput()" />
+  <input type="text" id="typingInput" placeholder="ここに入力..." />
   <div class="speed" id="speedDisplay"></div>
 
   <script>
-    let startTime;
-    let totalTime = 0;
     const targetText = "☆★ゲッダン★☆";
-    const inputField = document.getElementById('typingInput');
-    const speedDisplay = document.getElementById('speedDisplay');
+    const inputField = document.getElementById("typingInput");
+    const speedDisplay = document.getElementById("speedDisplay");
 
-    function startTimer() {
-      if (!startTime) {
+    let startTime = null;
+    let finished = false;
+
+    inputField.addEventListener("input", () => {
+      const inputText = inputField.value;
+
+      // タイマー開始条件：1文字目が入力された瞬間
+      if (startTime === null && inputText.length > 0) {
         startTime = Date.now();
       }
-    }
 
-    function checkInput() {
-      const inputText = inputField.value;
-      if (inputText === targetText) {
-        totalTime = Date.now() - startTime;
-        const timeInSeconds = totalTime / 1000;
-        const speed = targetText.length / timeInSeconds;
-        speedDisplay.innerHTML = `速度: ${speed.toFixed(2)} 文字/秒 (タイム: ${timeInSeconds.toFixed(2)}秒)`;
+      // 入力完了でタイマー停止
+      if (!finished && inputText === targetText) {
+        const endTime = Date.now();
+        const timeTaken = (endTime - startTime) / 1000;
+        const speed = targetText.length / timeTaken;
+
+        speedDisplay.innerHTML = `速度: ${speed.toFixed(2)} 文字/秒 (タイム: ${timeTaken.toFixed(2)}秒)`;
+        finished = true;
       }
-    }
+    });
+
+    // 再挑戦用に入力欄リセットで初期化
+    inputField.addEventListener("focus", () => {
+      if (finished) {
+        startTime = null;
+        finished = false;
+        speedDisplay.textContent = "";
+        inputField.value = "";
+      }
+    });
   </script>
 
 </body>
