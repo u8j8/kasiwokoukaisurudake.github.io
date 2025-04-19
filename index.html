@@ -1,83 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>歌詞</title>
-    <style>
-        ikisugi {
-            display: block;
-            background-color: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
-            font-weight: bold;
-            padding: 0px;
-            border: 0px solid rgb(34, 34, 34);
-            font-size: 1.2em;
-            font-family: "Comic Sans MS", cursive;
-        }
-        dekasugi {
-            display: block;
-            background-color: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
-            font-weight: bold;
-            padding: 0px;
-            border: 0px solid rgb(34, 34, 34);
-            font-size: 2.5em;
-            font-family: "Comic Sans MS", cursive;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☆★ゲッダン★☆ タイピング速度計測</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    input { font-size: 20px; padding: 10px; width: 50%; }
+    .speed { font-size: 24px; margin-top: 20px; }
+  </style>
 </head>
 <body>
-    <dekasugi>歌詞</dekasugi>
-    <ikisugi>
-        <pre>
-Happy Funny Lucky
-Happy Funny Lucky
-Happy Funny Lucky
 
-ねっ　everyday!
-oh yeah!!
+  <h1>☆★ゲッダン★☆ タイピング速度測定</h1>
+  <p>次の文字をできるだけ速く入力してください：</p>
+  <p><strong>☆★ゲッダン★☆</strong></p>
+  <input type="text" id="typingInput" placeholder="ここに入力..." onfocus="startTimer()" oninput="checkInput()" />
+  <div class="speed" id="speedDisplay"></div>
 
-百色の絵の具で
-真新しい今日を描くの
-(happy☆)
-ルルルルンランランラン
+  <script>
+    let startTime;
+    let totalTime = 0;
+    const targetText = "☆★ゲッダン★☆";
+    const inputField = document.getElementById('typingInput');
+    const speedDisplay = document.getElementById('speedDisplay');
 
-心がふわり　舞い上がる
-precious time!
+    function startTimer() {
+      if (!startTime) {
+        startTime = Date.now();
+      }
+    }
 
-おっとはみ出た
-黄色
+    function checkInput() {
+      const inputText = inputField.value;
+      if (inputText === targetText) {
+        totalTime = Date.now() - startTime;
+        const timeInSeconds = totalTime / 1000;
+        const speed = targetText.length / timeInSeconds;
+        speedDisplay.innerHTML = `速度: ${speed.toFixed(2)} 文字/秒 (タイム: ${timeInSeconds.toFixed(2)}秒)`;
+      }
+    }
+  </script>
 
-そうだこれで
-虹をかけよう
-
-ピンチはチャンス
-失敗なんて
-私の辞書にはない
-
-君がもしも　さみしいなら
-私の手を　つかんでよ
-
-連れて行ってあげるから
-世界中を　飛び回ろうよ
-
-Every! moment!
-最高の気分だ
-
-だってこんなに
-大切な
-
-仲間たちと同じ時を
-生きるって奇跡だもん
-
-それだけで
-Happy!で
-Funny!で
-Lucky!!
-
-出逢ってくれて
-ありがとう
-        </pre>
-    </ikisugi>
 </body>
 </html>
