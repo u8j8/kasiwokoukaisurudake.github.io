@@ -40,7 +40,7 @@
         const timeTaken = (endTime - startTime) / 1000;
         const speed = targetText.length / timeTaken;
 
-        speedDisplay.innerHTML = `速度: ${speed.toFixed(15)} 文字/秒 (タイム: ${timeTaken.toFixed(2)}秒)`;
+        speedDisplay.innerHTML = `速度: ${speed.toFixed(15)} 文字/秒 (タイム: ${timeTaken.toFixed(15)}秒)`;
         finished = true;
       }
     });
